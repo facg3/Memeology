@@ -1,8 +1,10 @@
-const { Pool } = require('pg');
-require('env2')('./config.env');
-let dbURL;
-if(!process.env.DB_URL) throw new Error('DB_URL is not set :(')
-dbURL = process.env.DB_URL;
-const pool = new Pool({connectionString: dbURL})
+const {Pool} = require('pg');
 
-module.exports = pool;
+let dbUrl;
+
+require('env2')('./config.env');
+
+if(!process.env.DB_URL) throw new Error ('DB_URL is not set');
+dbUrl = process.env.DB_URL;
+
+module.exports = new Pool({ connectionString: dbUrl });
