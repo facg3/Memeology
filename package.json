@@ -1,0 +1,20 @@
+{
+  "name": "pg-codealong",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "watch": "nodemon src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "env2": "^2.2.0",
+    "pg": "^7.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.5"
+  }
+}
