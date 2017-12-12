@@ -6,5 +6,5 @@ require('env2')('./config.env');
 
 if(!process.env.DB_URL) throw new Error ('DB_URL is not set');
 dbUrl = process.env.DB_URL;
-
-module.exports = new Pool({ connectionString: dbUrl });
+const pool = new Pool({connectionString: dbURL, ssl: true})
+module.exports = pool

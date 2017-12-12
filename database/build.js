@@ -9,6 +9,7 @@ dbConnection.query(sql, (err, res) => {
     console.log(err);
   } else {
     console.log(`response is ${res}`);
+
   }
 
 });
