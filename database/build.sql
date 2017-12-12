@@ -1,16 +1,16 @@
 BEGIN;
 
 
-DROP TABLE IF EXISTS superheroes CASCADE;
-
-CREATE TABLE superheroes (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  superpower VARCHAR(100) NOT NULL
+CREATE TABLE memes (
+id SERIAL PRIMARY KEY,
+url VARCHAR(100) NOT NULL,
+tags VARCHAR(100) NOT NULL,
+likes INTEGER DEFAULT 0
 );
 
-INSERT INTO superheroes (name, superpower) VALUES ('superman','he can fly'),
-('batman','none');
+INSERT INTO memes (url,tags) VALUES
+('http://quotesnhumor.com/wp-content/uploads/2015/09/Top-40-Funniest-Minions-Memes-funny.jpg','minion woman');
+
 
 
 COMMIT;
