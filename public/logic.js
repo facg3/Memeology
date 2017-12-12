@@ -16,8 +16,8 @@ for (var i=btns.length-1;i>=0;i--) {
 }
 
 
-var potato = document.getElementById("upload")
+var potato = document.getElementById("upload");
 potato.addEventListener("click", ()=>{
   var url = prompt("Insert a meme direct link (URL).");
-  var tags = prompt("Insert space seperated tags for your meme.")
+  var tagsarray = prompt("Insert space seperated tags for your meme.").split(" ");
 })
