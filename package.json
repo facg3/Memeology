@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "tape ./src/tests.js | tap-spec",
     "start": "node server.js",
-    "watch": "nodemon src/server.js"
+    "watch": "nodemon ./src/server.js"
   },
   "keywords": [],
   "author": "",
