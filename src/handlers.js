@@ -38,7 +38,7 @@ const handler = (request, response) => {
   });
   }
 
-const getGame = (request, response) => {
+const memeTag = (request, response) => {
   var allGame = "";
     request.on('data', function (chunkOfData) {
         allGame += chunkOfData;
