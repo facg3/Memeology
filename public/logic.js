@@ -52,3 +52,4 @@ function getMeme(err, data){
     })
   }
 }
+request("/getMeme", getMeme);

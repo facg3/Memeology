@@ -1,18 +1,22 @@
 const fs = require('fs');
 const path = require('path');
 const querystring = require('querystring');
+const dynamic = require('./dynamic');
 
-const homepage = (request, response) =>{
-  fs.readFile(path.join(__dirname, "..","public", "index.html"), (err, file)=>{
-    if (err){
-      response.writeHead(500, {"content-type":"text/html"});
-      response.end("<h1 style = 'text-align: center;'>SERVER ERROR</h1>");}
-  else {
-  response.writeHead(200, {"content-type":"text/html"
-});
-  response.end(file);
-}
-});
+const homepage = (request, response) => {
+  fs.readFile(path.join(__dirname,"..", "index.html"), (err, file) => {
+    if (err) {
+      response.writeHead(500, {
+        "content-type": "text/html"
+      });
+      response.end("<h1 style = 'text-align: center;'>SERVER ERROR</h1>");
+    } else {
+      response.writeHead(200, {
+        "content-type": "text/html"
+      });
+      response.end(file);
+    }
+  });
 }
 
 const handler = (request, response) => {
@@ -26,48 +30,47 @@ const handler = (request, response) => {
     json: "application/json"
   };
 
-  fs.readFile(path.join(__dirname, "..", url), function (err, file){
-    if(err){
-      response.writeHead(500, {"content-type":"text/html"});
+  fs.readFile(path.join(__dirname, "..", url), function(err, file) {
+    if (err) {
+      response.writeHead(500, {
+        "content-type": "text/html"
+      });
       response.end("<h1 style = 'text-align: center;'>SERVER ERROR</h1>");
-    }
-    else {
+    } else {
       response.writeHead(200, "Content-Type:" + filetype[extension])
       response.end(file);
     }
   });
-  }
+}
 
-const getGame = (request, response) => {
-  var allGame = "";
-    request.on('data', function (chunkOfData) {
-        allGame += chunkOfData;
-    });
-    request.on('end', function () {
-    fs.readFile(path.join(__dirname , 'games.json'),function(err,files){
-      if(err){
-        console.log(err);
-      }else{
-        var filter = allGame.toUpperCase();
-        var obj = JSON.parse(files);
-        var listgame = [];
-        for (var i = 0; i<obj.length;i++){
-          var game = obj[i].name;
-          if(game.toUpperCase().startsWith(filter)){
-            listgame.push(game);
-          }
+const memeTag = (request, response) => {
+var allTag = "";
+request.on('data', function(chunkOfData) {
+  allTag += chunkOfData;
+});
+request.on('end', function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      var tag = querystring.parse(allTag);
+      var tagsArray = dynamic.findMeme(tag, (err, res) => {
+        if (err) {
+          response.writeHead(500, 'Content-Type: text/html');
+          response.end('<h1>ERROR!!</h1>');
+          console.log(err);
+        } else {
+          response.writeHead(200, 'Content-Type: text/html');
+          response.end()
         }
-        response.end(JSON.stringify(listgame));
-      }
-    })
-
-    });
-  };
+      })
 
 
-
-  module.exports = {
-    homepage,
-    handler,
-    getGame
     }
+  });};
+
+
+module.exports = {
+  homepage,
+  handler,
+  memeTag
+}
