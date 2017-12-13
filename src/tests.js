@@ -1,6 +1,6 @@
 const test = require('tape');
 const shot = require('shot');
-const router = require('./src/router');
+const router = require('./router');
 const fs = require('fs');
 
 test("Tape is working", (t)=>  {
@@ -10,7 +10,7 @@ test("Tape is working", (t)=>  {
 });
 
 
-var index = fs.readFile(process.cwd()+'/'+'public/index.html','UTF-8' ,(err,contentFile) =>{
+var index = fs.readFileSync(process.cwd()+'/'+'index.html' ,'UTF-8',(err,contentFile) =>{
   if(err){
     process.stdout.write('The file doesn\'t exist')
   }else{
@@ -36,15 +36,6 @@ test("Unknown Pages", (t)=>{
 
 });
 
-
-test("Retrieving memes", t=>{
-  shot.inject(router, {method:"get", url:"/getMeme"}, res=>{
-    t.equal(res.statusCode, 200, 'should respond with status code of 200');
-    t.equal(typeof res.payload, "string", "Should respond with a url of a meme as a string");
-    t.end();
-
-  })
-})
 
 test("Retrieving memes", t=>{
   shot.inject(router, {method:"get", url:"/getMeme"}, res=>{
