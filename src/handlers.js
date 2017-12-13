@@ -46,15 +46,12 @@ const handler = (request, response) => {
 const memeTag = (request, response) => {
 var allTag = "";
 request.on('data', function(chunkOfData) {
-  console.log("allTag IS: " , allTag);
   allTag += chunkOfData;
 });
 request.on('end', function(err) {
     if (err) {
       console.log(err);
     } else {
-
-      console.log("tag is ", allTag);
       var tagsArray = dynamic.findMeme(allTag, (err, res) => {
         if (err) {
           response.writeHead(500, 'Content-Type: text/html');
@@ -62,8 +59,6 @@ request.on('end', function(err) {
           console.log(err);
         } else {
           response.writeHead(200, 'Content-Type: text/html');
-          console.log("allTag is ", allTag)
-          console.log("res is ", res)
           response.end(res)
         }
       })
@@ -72,9 +67,38 @@ request.on('end', function(err) {
     }
   });};
 
+const uploadMeme = (request, response) =>{
+  var allinfo = "";
+  request.on("data", function(chunkOfData){
+    allinfo += chunkOfData
+  });
+
+request.on('end', function(err){
+  if(err){
+    console.log(err);
+  } else {
+    var uploading = dynamic.addMeme(allinfo, (err, res)=>{
+      if(err){
+        response.writeHead(500, 'Content-Type: text/html');
+        response.end('<h1>ERROR!!</h1>');
+        console.log(err);}
+
+      else{
+        response.writeHead(200, 'Content-Type: text/html');
+        response.end(JSON.stringify(res));}
+
+      })
+
+    }
+  })
+ }
+
+
+
 
 module.exports = {
   homepage,
   handler,
-  memeTag
+  memeTag,
+  uploadMeme
 }
