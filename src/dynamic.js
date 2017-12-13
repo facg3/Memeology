@@ -8,8 +8,12 @@ const findMeme = (tag, cb) => {
   console.log(sql)
   dbconnection.query(sql, (err, res) => {
     if (err) cb(err);
-    cb(null, res.rows[0].url);
-
+    console.log("RESPONSE IS: ", res);
+    var urls = [];
+    for (var i in res.rows){
+      urls.push(res.rows[i].url)
+}
+cb(null, JSON.stringify(urls));
   });
 };
 
