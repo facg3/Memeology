@@ -29,7 +29,7 @@ const uploadingMemes = ()=>{
     if (tags.trim() != ""){
       var url = "/insertMeme";
       var link = link.trim();
-      var tags = tags.trim();
+      var tags = tags.trim().toLowerCase();
       var xhr = new XMLHttpRequest();
       var response;
       var info;
@@ -58,7 +58,7 @@ const uploadingMemes = ()=>{
 function getMeme(){
   document.getElementById("memes-container").innerHTML = "";
   var url = "/getMeme"
-  var tag = document.getElementsByClassName("search-box")[0].value;
+  var tag = document.getElementsByClassName("search-box")[0].value.toLowerCase();
   var xhr = new XMLHttpRequest();
   var response
   xhr.onreadystatechange = function(){
