@@ -12,6 +12,9 @@ const router = (request, response) => {
   else if (url === "/getMeme"){
     handlers.memeTag(request, response);
   }
+  else if (url === "/insertMeme"){
+    handlers.uploadMeme(request, response);
+  }
   else {
     response.writeHead(404);
     response.end("PAGE NOT FOUND!!!!!!!!!!");

@@ -22,35 +22,61 @@ var request = function(url, cb){
 
 
 
-var potato = document.getElementById("upload");
-potato.addEventListener("click", ()=>{
-  var url = prompt("Insert a meme direct link (URL).");
-  if(url){var tags = prompt("Insert space seperated tags for your meme.");
+
+const uploadingMemes = ()=>{
+  var link = prompt("Insert a meme direct link (URL).");
+  if(link){var tags = prompt("Insert space seperated tags for your meme.");
+    if (tags.trim() != "" && link.split(".")[link.split(".").length-1].length <= 4){
+      var url = "/insertMeme";
+      var link = link.trim();
+      var tags = tags.trim();
+      var xhr = new XMLHttpRequest();
+      var response;
+      var info;
+      info = [link, tags];
+      xhr.onreadystatechange = function(){
+        if(xhr.status === 200 && xhr.readyState == 4){
+
+          alert("Meme added to our database, Thanks for sharing!");
+
+        }else{
+          console.log("error" + xhr.responseType);
+        }
+
+      }
+      xhr.open("POST", url);
+
+      xhr.send(JSON.stringify(info));
+    }
+    else {alert("Please insert space seperated tags.");
+          return;}
 }
-})
+  else{alert("Please insert a proper image url.");
+        return;}
+}
 
 function getMeme(){
-  url = "/getMeme"
+  document.getElementById("memes-container").innerHTML = "";
+  var url = "/getMeme"
   var tag = document.getElementsByClassName("search-box")[0].value;
   var xhr = new XMLHttpRequest();
   var response
   xhr.onreadystatechange = function(){
-    if(xhr.status === 200){
-      if(!typeof response === "object"){
-      response = JSON.parse(xhr.responseText);}
-      console.log(response);
-      for (var j in response){
-          var meme = document.createElement("img");
-          meme.src = response[j];
-          var cont = document.getElementById("memes-container");
-          cont.appendChild(meme);
-    }
+    if(xhr.status === 200 && xhr.readyState == 4){
+      response = JSON.parse(xhr.responseText);
+
+
     }else{
-      console.log("errorrrr" + xhr.responseType);
+      console.log("error" + xhr.responseType);
     }
-
+    for (var j in response){
+        var meme = document.createElement("img");
+        meme.src = response[j];
+        var cont = document.getElementById("memes-container");
+        cont.appendChild(meme);
+        cont.appendChild(document.createElement("br"))
   }
-
+}
   xhr.open("POST", url);
   xhr.send(tag);
 }

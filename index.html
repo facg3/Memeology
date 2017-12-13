@@ -10,10 +10,10 @@
   </head>
   <body>
     <h1 class = "title">Memeology</h1>
-    <h3>Search for a meme or <span id = "upload">upload your own</span>!</h3>
+    <h3>Search for a meme or <span id = "upload" onclick = "uploadingMemes()">upload your own</span>!</h3>
     <div class="search">
-  <input type="text" class="search-box" placeholder="Search" />
-  <input value="" class="search-btn" onClick="getMeme()"/>
+  <input type="text" class="search-box" placeholder="Search" value = "" />
+  <input type = "submit" value="" class="search-btn" onClick="getMeme()"/>
 </div>
   <div id = "memes-container"></div>
 <script type="text/javascript" src = "/public/logic.js">
