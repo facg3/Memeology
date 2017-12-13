@@ -46,21 +46,25 @@ const handler = (request, response) => {
 const memeTag = (request, response) => {
 var allTag = "";
 request.on('data', function(chunkOfData) {
+  console.log("allTag IS: " , allTag);
   allTag += chunkOfData;
 });
 request.on('end', function(err) {
     if (err) {
       console.log(err);
     } else {
-      var tag = querystring.parse(allTag);
-      var tagsArray = dynamic.findMeme(tag, (err, res) => {
+
+      console.log("tag is ", allTag);
+      var tagsArray = dynamic.findMeme(allTag, (err, res) => {
         if (err) {
           response.writeHead(500, 'Content-Type: text/html');
           response.end('<h1>ERROR!!</h1>');
           console.log(err);
         } else {
           response.writeHead(200, 'Content-Type: text/html');
-          response.end()
+          console.log("allTag is ", allTag)
+          console.log("res is ", res)
+          response.end(res)
         }
       })
 

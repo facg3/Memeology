@@ -3,13 +3,12 @@ const dbconnection = require('../database/dbconnection');
 const findMeme = (tag, cb) => {
   const sql = {
     text: `select url from memes where tags LIKE $1;`,
-    values: [tag],
+    values: [`%${tag}%`]
   };
   console.log(sql)
   dbconnection.query(sql, (err, res) => {
     if (err) cb(err);
-    console.log(res.rows);
-    cb(null, res.rows);
+    cb(null, res.rows[0].url);
 
   });
 };
