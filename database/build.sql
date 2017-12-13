@@ -4,9 +4,13 @@ BEGIN;
 CREATE TABLE memes (
 id SERIAL PRIMARY KEY,
 url VARCHAR(100) NOT NULL,
+<<<<<<< HEAD
+tags VARCHAR(100) NOT NULL
+=======
 tags VARCHAR(100) NOT NULL,
 likes INTEGER DEFAULT 0
 
+>>>>>>> 0391804fe3e59d0bf23c7eabeec9b2fabceb6ebe
 );
 
 
