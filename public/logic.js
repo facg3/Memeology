@@ -26,7 +26,7 @@ var request = function(url, cb){
 const uploadingMemes = ()=>{
   var link = prompt("Insert a meme direct link (URL).");
   if(link){var tags = prompt("Insert space seperated tags for your meme.");
-    if (tags.trim() != "" && link.split(".")[link.split(".").length-1].length <= 4){
+    if (tags.trim() != ""){
       var url = "/insertMeme";
       var link = link.trim();
       var tags = tags.trim();

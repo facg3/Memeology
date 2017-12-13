@@ -19,6 +19,23 @@ const homepage = (request, response) => {
   });
 }
 
+const icon = (request, response) => {
+  fs.readFile(path.join(__dirname,"..", "favicon.ico"), (err, file) => {
+    if (err) {
+      response.writeHead(500, {
+        "content-type": "text/html"
+      });
+      response.end("<h1 style = 'text-align: center;'>SERVER ERROR</h1>");
+    } else {
+      response.writeHead(200, {
+        "content-type": "image/x-icon"
+      });
+      response.end(file);
+    }
+  });
+}
+
+
 const handler = (request, response) => {
 
   const url = request.url;
@@ -27,7 +44,8 @@ const handler = (request, response) => {
     html: "text/html",
     css: "text/css",
     js: "application/javascript",
-    json: "application/json"
+    json: "application/json",
+    ico: "image/x-icon"
   };
 
   fs.readFile(path.join(__dirname, "..", url), function(err, file) {
@@ -100,5 +118,6 @@ module.exports = {
   homepage,
   handler,
   memeTag,
-  uploadMeme
+  uploadMeme,
+  icon
 }
