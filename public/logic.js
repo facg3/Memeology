@@ -36,14 +36,15 @@ function getMeme(){
   var response
   xhr.onreadystatechange = function(){
     if(xhr.status === 200){
-      response = (xhr.responseText);
-      console.log(response)
+      if(!typeof response === "object"){
+      response = JSON.parse(xhr.responseText);}
+      console.log(response);
+      for (var j in response){
           var meme = document.createElement("img");
-          meme.src = response;
+          meme.src = response[j];
           var cont = document.getElementById("memes-container");
           cont.appendChild(meme);
-
-
+    }
     }else{
       console.log("errorrrr" + xhr.responseType);
     }
