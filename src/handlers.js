@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const querystring = require('querystring');
 const dynamic = require('./dynamic');
 
 const homepage = (request, response) => {
@@ -76,7 +75,7 @@ request.on('end', function(err) {
           response.end('<h1>ERROR!!</h1>');
           console.log(err);
         } else {
-          response.writeHead(200, 'Content-Type: text/html');
+          response.writeHead(200, 'Content-Type: application/json');
           response.end(res)
         }
       })
@@ -92,9 +91,6 @@ const uploadMeme = (request, response) =>{
   });
 
 request.on('end', function(err){
-  if(err){
-    console.log(err);
-  } else {
     var uploading = dynamic.addMeme(allinfo, (err, res)=>{
       if(err){
         response.writeHead(500, 'Content-Type: text/html');
@@ -102,12 +98,12 @@ request.on('end', function(err){
         console.log(err);}
 
       else{
-        response.writeHead(200, 'Content-Type: text/html');
+        response.writeHead(200, 'Content-Type: application/json');
         response.end(JSON.stringify(res));}
 
       })
 
-    }
+
   })
  }
 

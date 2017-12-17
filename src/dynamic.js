@@ -9,16 +9,17 @@ const findMeme = (tag, cb) => {
   dbconnection.query(sql, (err, res) => {
     if (err) cb(err);
 
-    var urls = [];
-    for (var i in res.rows){
-      urls.push(res.rows[i].url)
-}
+
+var urls = res.rows.map(function(val){
+  return val.url
+})
+
 cb(null, JSON.stringify(urls));
   });
 };
 
 const addMeme = (info, cb) => {
-  
+
   var url = JSON.parse(info)[0];
   var tag = JSON.parse(info)[1];
   const sql = {
